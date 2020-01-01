@@ -2,7 +2,7 @@ const Koa = require("koa");
 
 const app = new Koa();
 
-
+const bodyParser = require("koa-bodyparser");
 
 
 const router = require("koa-router")();
@@ -11,7 +11,7 @@ router.get("/", async (ctx, next) => {
     await next();
     ctx.response.body = `<h1>首页</h1>
     <form action="/signin" method="post">
-        <p>Name: <input name="name"></p>
+        <p>Name: <input name="name" ></p>
         <p>Password: <input name="password" type="password"></p>
         <p><input type="submit" value="Submit"></p>
     </form>`;
@@ -32,9 +32,9 @@ router.post('/signin', async (ctx, next) => {
 // app.use(async function(ctx, next) {
 //    await next();
 //    ctx.response.type = "text/html";
-//    ctx.response.body = "你好";
+//    ctx.response.body = "你好, koa!";
 // })
-
+app.use(bodyParser());
 
 app.use(router.routes());
 
